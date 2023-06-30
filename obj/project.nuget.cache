@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6m4pLdHxPZmKtA1AB+Q6wE64Eqt5oFge3TTc2a1TerdDp48bAuyBiUymsfpn3oASW+r+SFVPyNUVvBytUpufnQ==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\honor\\Documents\\Blazor\\Blazor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\honor\\.nuget\\packages\\microsoft.office.interop.excel\\15.0.4795.1001\\microsoft.office.interop.excel.15.0.4795.1001.nupkg.sha512"
+  ],
+  "logs": []
+}

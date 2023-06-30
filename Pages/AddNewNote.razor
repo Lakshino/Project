@@ -1,0 +1,87 @@
+@using Excel = Microsoft.Office.Interop.Excel;
+@using System.Data;
+
+@page "/addnewnote"
+
+<PageTitle>Заполнение паспорта объекта</PageTitle>
+<h3>AddNewNote</h3>
+
+<h1>ID</h1>
+
+
+<table>
+    <thead>
+        <tr>
+            @foreach (DataColumn column in xlApp.Columns)
+            {
+                <th>
+                    @column.ColumnName
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in xlApp.Rows)
+        {
+            <tr>
+                @foreach (DataColumn column in xlApp.Columns)
+                {
+                    <td>
+                        @row[column.ColumnName].ToString()
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    static Excel.Application xlApp = new Excel.Application
+            {
+                Visible = false,
+                SheetsInNewWorkbook = 1
+            };
+
+            //добавить собственно path до excel
+    Excel.Workbook workBook = xlApp.Workbooks.Open(@"C:\Excel\CardSveto.xlsx");
+    
+    protected override void OnInitialized()
+    {
+        xlApp.DisplayAlerts = false;
+        Excel.Worksheet xlSheet = (Excel.Worksheet)xlApp.Worksheets.get_Item(1);
+        xlSheet.Name = "Алфавит";
+        var lastCell = xlSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell);
+    }
+    // Create a DataTable
+    /*
+    private Microsoft.Office.Interop.Excel.DataTable displayDataTable = new DataTable();
+
+    // When a file is uploaded to the App using the InputFile, trigger:
+    async Task OpenExcelFileFromDisk(InputFileChangeEventArgs e)
+    {
+        // Open the File to a MemoryStream object
+        MemoryStream ms = new MemoryStream();
+
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        ms.Position = 0;
+
+        // Define variables for IronXL
+        WorkBook loadedWorkBook = WorkBook.FromStream(ms);
+        WorkSheet loadedWorkSheet = loadedWorkBook.DefaultWorkSheet; // Or use .GetWorkSheet()
+
+        // Add header Columns to the DataTable
+        RangeRow headerRow = loadedWorkSheet.GetRow(0);
+        for (int col = 0 ; col < loadedWorkSheet.ColumnCount ; col++)
+        {
+            displayDataTable.Columns.Add(headerRow.ElementAt(col).ToString());
+        }
+
+        // Populate the DataTable
+        for (int row = 1 ; row < loadedWorkSheet.RowCount ; row++)
+        {
+            IEnumerable<string> excelRow = loadedWorkSheet.GetRow(row).ToArray().Select(c => c.ToString());
+            displayDataTable.Rows.Add(excelRow.ToArray());
+        }
+    }*/
+}
+

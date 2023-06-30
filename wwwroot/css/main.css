@@ -1,0 +1,17 @@
+.parent{
+    background-image: url('https: //gamerwall.pro/uploads/posts/2022-03/1646947253_51-gamerwall-pro-p-svetofor-art-krasivie-oboi-69.jpg');
+    background-repeat: no-repeat;
+    background-position:center;
+    background-attachment:fixed; 
+    background-size:cover;
+    display: flex;
+    align-items: center;
+    margin-left: center;
+    height: 100vh;
+   
+    position: relative;
+}
+.child {
+position: absolute;
+    top: 50%;
+}

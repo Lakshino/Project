@@ -1,0 +1,56 @@
+﻿@inject NavigationManager Navigation
+@inject IJSRuntime JsRuntime
+@using System.ComponentModel.DataAnnotations;
+@page "/"
+
+<link rel="stylesheet" href="css/main.css"/>
+
+<PageTitle>Заполнение паспорта объекта</PageTitle>
+<div class = "parent">
+<div class="child">
+<h1>ID</h1>
+     <EditForm EditContext="editContext">
+     <DataAnnotationsValidator />
+     <ValidationSummary />
+
+     <div class="form-group">
+         <label for="ID">id:</label>
+         <InputText id="id" @bind-Value="@osModel.ID"/>
+     </div>
+
+    <button type="submit" @onclick='@(() => ChangePage("addnewnote"))'>Добавить запись</button>
+    <button type="submit" @onclick='@(() => ChangePage("datefind"))'>Посмотреть запись</button>
+</EditForm>
+</div>
+</div>
+
+@code {
+
+public class OSModel
+    {
+        [Required]
+        public string? ID { get; set; }
+    }
+    OSModel osModel = new OSModel();
+    EditContext? editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(osModel);
+    }
+
+
+    //Переход на какую-либо страницу
+    private void ChangePage(string path)
+    {
+        if(editContext!=null && editContext.Validate())
+        {
+            Navigation.NavigateTo("/" + path);
+            Console.WriteLine($"ID: {osModel.ID}");
+        }
+        /*else
+            await JsRuntime.InvokeVoidAsync("alert", "Вы не заполнили поле!");*/
+    }
+
+}
+7
